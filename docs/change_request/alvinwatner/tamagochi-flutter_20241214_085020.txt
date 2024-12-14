@@ -1,0 +1,51 @@
+file:///Users/alvin/.puro/shared/pub_cache/hosted/pub.dev/stacked_services-1.6.0/lib/src/dialog/dialog_service.dar
+t:206:7
+customDialogUI != null
+"You have to call registerCustomDialogBuilder to use this function. Look at the custom dialog UI section in the
+stacked_services readme."
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 296:3  throw_
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 29:3   assertFailed
+packages/stacked_services/src/dialog/dialog_service.dart 206:21              showCustomDialog
+packages/tamagotchi_stev/features/pet/pet_viewmodel.dart 112:26              _showErrorDialog
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 84:54           runBody
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 127:5           _async
+packages/tamagotchi_stev/features/pet/pet_viewmodel.dart 111:32              [_showErrorDialog]
+packages/tamagotchi_stev/features/pet/pet_viewmodel.dart 63:13               initialize
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 45:50           <fn>
+dart-sdk/lib/async/zone.dart 1661:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 163:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 861:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 890:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 666:5                                    [_completeWithValue]
+dart-sdk/lib/async/future_impl.dart 736:7                                    callback
+dart-sdk/lib/async/schedule_microtask.dart 40:11                             _microtaskLoop
+dart-sdk/lib/async/schedule_microtask.dart 49:5                              _startMicrotaskLoop
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 181:7           <fn>
+DartError: Assertion failed:
+file:///Users/alvin/.puro/shared/pub_cache/hosted/pub.dev/stacked_services-1.6.0/lib/src/dialog/dialog_service.dar
+t:206:7
+customDialogUI != null
+"You have to call registerCustomDialogBuilder to use this function. Look at the custom dialog UI section in the
+stacked_services readme."
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 296:3  throw_
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 29:3   assertFailed
+packages/stacked_services/src/dialog/dialog_service.dart 206:21              showCustomDialog
+packages/tamagotchi_stev/features/pet/pet_viewmodel.dart 112:26              _showErrorDialog
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 84:54           runBody
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 127:5           _async
+packages/tamagotchi_stev/features/pet/pet_viewmodel.dart 111:32              [_showErrorDialog]
+packages/tamagotchi_stev/features/pet/pet_viewmodel.dart 63:13               initialize
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 45:50           <fn>
+dart-sdk/lib/async/zone.dart 1661:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 163:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 861:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 890:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 666:5                                    [_completeWithValue]
+dart-sdk/lib/async/future_impl.dart 736:7                                    callback
+dart-sdk/lib/async/schedule_microtask.dart 40:11                             _microtaskLoop
+dart-sdk/lib/async/schedule_microtask.dart 49:5                              _startMicrotaskLoop
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 181:7           <fn>
+DartError: Assertion failed:
+file:///Users/alvin/.puro/shared/pub_cache/hosted/pub.dev/stacked_services-1.6.0/lib/src/dialog/dialog_service.dar
+t:206:7
+customDialogUI != null

@@ -5,12 +5,11 @@ import 'package:tamagotchi_stev/app/app.dialogs.dart';
 import 'package:tamagotchi_stev/app/app.locator.dart';
 import 'package:tamagotchi_stev/features/app/app_view.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
 
   await setupLocator();
   setupDialogUi();
