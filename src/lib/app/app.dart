@@ -12,8 +12,8 @@ import 'package:tamagotchi_stev/ui/dialogs/error_retry/error_retry_dialog.dart';
 @StackedApp(
   routes: [
     MaterialRoute(page: StartupView, initial: true),
-    MaterialRoute(page: HomeView),
-    MaterialRoute(page: PetView),
+    MaterialRoute(page: HomeView, path: '/home-view'),
+    MaterialRoute(page: PetView, path: '/pet-view'),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),
