@@ -1,7 +1,7 @@
 {
   "package_name": "com.steve.tamagotchi_stev",
-  "project_description": "The Tamagotchi Stev application is a Flutter project that allows users to create and care for a virtual pet. The app follows the Stacked architecture and provides a range of features, including routing, dependency injection, and custom dialog/bottom sheet management. Users can interact with their pet by feeding, playing, and cleaning it, while monitoring its health, happiness, and energy levels.",
-  "architecture_overview": "The application is built using the Stacked architecture, which promotes separation of concerns and testability. The core components include ViewModels (e.g., HomeViewModel, PetViewModel) that handle business logic and state management, Views (e.g., HomeView, PetView) that render the UI, and a set of services (e.g., PetService, DialogService, BottomSheetService) that provide core functionality and integration points. The app.locator.dart file sets up the dependency injection, while app.router.dart manages the navigation and routing between views.",
+  "project_description": "The Tamagotchi Stev application is a Flutter project that allows users to create and care for a virtual pet. The app follows the Stacked architecture and provides a range of features, including pet management, custom dialog/bottom sheet handling, and responsive UI design. Users can interact with their pet by feeding, playing, and cleaning it, while monitoring its health, happiness, and energy levels. The application also includes features for creating a new pet, displaying the pet's current status, and handling errors and exceptions gracefully.",
+  "architecture_overview": "The application is built using the Stacked architecture, which promotes separation of concerns and testability. The core components include ViewModels (e.g., PetViewModel) that handle business logic and state management, Views (e.g., PetView) that render the UI, and a set of services (e.g., PetService, DialogService, BottomSheetService) that provide core functionality and integration points. The app.locator.dart file sets up the dependency injection, while app.router.dart manages the navigation and routing between views.",
   "files": [
     {
       "name": "lib/app/app.dart",
@@ -928,6 +928,104 @@
         "stacked_services/src/navigation/navigation_service.dart",
         "stacked_shared/stacked_shared.dart"
       ]
+    },
+    {
+      "name": "lib/ui/dialogs/error_retry/error_retry_dialog_model.dart",
+      "description": "This Dart file defines the `ErrorRetryDialogModel` class, which is responsible for managing the state and behavior of an error retry dialog in a Flutter application.",
+      "class_diagram": "@startuml\nclass ErrorRetryDialogModel extends BaseViewModel {\n}\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/pet/widgets/loading_indicator_widget.dart",
+      "description": "The LoadingIndicatorWidget is a Flutter widget that displays a circular progress indicator and a 'Loading...' text to indicate that data is being loaded. It is commonly used in UI components that require asynchronous data fetching, such as when loading pet information in a pet-related application.",
+      "class_diagram": "@startuml\nclass LoadingIndicatorWidget {\n  + build(BuildContext context): Widget\n}\n@enduml",
+      "methods": [
+        {
+          "name": "build",
+          "description": "Builds the UI for the LoadingIndicatorWidget, which consists of a centered circular progress indicator and a 'Loading...' text.",
+          "parameters": [
+            "BuildContext context"
+          ],
+          "return_type": "Widget"
+        }
+      ],
+      "dependencies": [
+        "package:flutter/material.dart"
+      ]
+    },
+    {
+      "name": "lib/core/error/game_initialization_error.dart",
+      "description": "This file defines a custom exception class called `GameInitializationError` that is used to handle errors that occur during the initialization of a game or application.",
+      "class_diagram": "```plantuml\nclass GameInitializationError implements Exception {\n  -String message\n  +GameInitializationError(String message)\n  +String toString()\n}\n```",
+      "methods": [
+        {
+          "name": "GameInitializationError",
+          "description": "Constructs a new `GameInitializationError` instance with the provided error message.",
+          "parameters": [
+            "message"
+          ],
+          "return_type": "void"
+        },
+        {
+          "name": "toString",
+          "description": "Returns a string representation of the `GameInitializationError` instance, including the error message.",
+          "parameters": null,
+          "return_type": "String"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "lib/ui/dialogs/error_retry/error_retry_dialog.dart",
+      "description": "The `ErrorRetryDialog` class is responsible for displaying a dialog that informs the user of an error and provides a 'Retry' button to attempt the operation again. It is a part of the UI layer of the application and is used to handle error scenarios in a user-friendly manner.",
+      "class_diagram": "@startuml\nclass ErrorRetryDialog extends StackedView<ErrorRetryDialogModel> {\n  - DialogRequest request\n  - Function(DialogResponse) completer\n  + builder(BuildContext, ErrorRetryDialogModel, Widget?)\n  + viewModelBuilder(BuildContext): ErrorRetryDialogModel\n}\n\nclass ErrorRetryDialogModel {\n}\n@enduml",
+      "methods": [
+        {
+          "name": "builder",
+          "description": "Builds the UI for the error retry dialog, including the error icon, title, description, and buttons for 'Cancel' and 'Retry'.",
+          "parameters": [
+            "BuildContext",
+            "ErrorRetryDialogModel",
+            "Widget?"
+          ],
+          "return_type": "Widget"
+        },
+        {
+          "name": "viewModelBuilder",
+          "description": "Creates an instance of the `ErrorRetryDialogModel` class, which is used to manage the state and logic of the dialog.",
+          "parameters": [
+            "BuildContext"
+          ],
+          "return_type": "ErrorRetryDialogModel"
+        }
+      ],
+      "dependencies": [
+        "package:flutter/material.dart",
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart",
+        "error_retry_dialog_model.dart"
+      ]
+    },
+    {
+      "name": "lib/core/error/error_boundary_widget.dart",
+      "description": "The `ErrorBoundaryWidget` is a custom Flutter widget that serves as an error boundary, providing a fallback UI when an exception is thrown within its child widget. It is responsible for handling and displaying error states in the application, ensuring a smooth user experience even in the event of unexpected failures.",
+      "class_diagram": "@startuml\nclass ErrorBoundaryWidget {\n  -Widget child\n  -String? errorMessage\n  -VoidCallback? onRetry\n  +Widget build(BuildContext context)\n}\n@enduml",
+      "methods": [
+        {
+          "name": "build",
+          "description": "Builds the widget tree and displays the appropriate UI based on the error state.",
+          "parameters": [
+            "BuildContext context"
+          ],
+          "return_type": "Widget"
+        }
+      ],
+      "dependencies": [
+        "package:flutter/material.dart"
+      ]
     }
   ],
   "dependencies": [
@@ -952,7 +1050,7 @@
       "purpose": "Creating gaps in layouts"
     }
   ],
-  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant AppView\nparticipant PetView\nparticipant PetViewModel\nparticipant PetService\nparticipant DialogService\nparticipant BottomSheetService\n\nUser -> main: Launch app\nmain -> AppView: Create and run\nAppView -> PetView: Initialize\nPetView -> PetViewModel: Get pet data\nPetViewModel -> PetService: Fetch pet information\nPetService -> PetViewModel: Return pet details\nPetViewModel -> PetView: Render pet UI\nUser -> PetView: Interact with pet\nPetView -> PetViewModel: Handle user actions\nPetViewModel -> PetService: Update pet stats\nPetViewModel -> DialogService: Show pet status dialog\nPetViewModel -> BottomSheetService: Show pet actions bottom sheet\n@enduml",
+  "sequence_diagram": "@startuml\nactor User\nparticipant AppView\nparticipant PetView\nparticipant PetViewModel\nparticipant PetService\nparticipant DialogService\nparticipant BottomSheetService\n\nUser -> AppView: Launch app\nAppView -> PetView: Initialize\nPetView -> PetViewModel: Get pet data\nPetViewModel -> PetService: Fetch pet information\nPetService -> PetViewModel: Return pet details\nPetViewModel -> PetView: Render pet UI\nUser -> PetView: Interact with pet\nPetView -> PetViewModel: Handle user actions\nPetViewModel -> PetService: Update pet stats\nPetViewModel -> DialogService: Show pet status dialog\nPetViewModel -> BottomSheetService: Show pet actions bottom sheet\n@enduml",
   "state_management_flow": "The application uses the Stacked architecture for state management. ViewModels (e.g., PetViewModel) handle the business logic and state for their respective views. The ViewModels interact with services (e.g., PetService) to fetch and update the pet's data. When the state changes, the ViewModels notify the Views, which then update the UI accordingly. This separation of concerns and reactive approach promotes maintainability and testability.",
   "navigation_flow": "The application's navigation is managed using the Stacked Router, defined in the app.router.dart file. The main navigation flow starts with the AppView, which initializes the Stacked architecture and displays the PetView. Users can then interact with their pet, triggering updates to the PetViewModel, which in turn updates the PetView. The PetViewModel also handles navigation to other screens, such as displaying a pet status dialog or a pet actions bottom sheet, by utilizing the DialogService and BottomSheetService."
 }
