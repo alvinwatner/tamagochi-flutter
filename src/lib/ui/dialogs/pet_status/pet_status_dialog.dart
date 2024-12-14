@@ -14,7 +14,7 @@ class PetStatusDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Pet pet = request.data;
+    final Pet pet = request.data as Pet;
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
