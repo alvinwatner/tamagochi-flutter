@@ -33,10 +33,12 @@ class PetViewModel extends BaseViewModel {
       await _petService.verifyPetState();
 
       if (_pet == null) {
-        final response = await _dialogService.showCustomDialog(
-          variant: DialogType.namePet,
+        final response = await _dialogService.showDialog(
           title: 'Name Your Pet',
           description: 'Choose a name for your new friend!',
+          barrierDismissible: false,
+          buttonTitle: 'Create',
+          cancelTitle: 'Cancel',
         );
 
         if (response?.confirmed == true && response?.data != null) {
@@ -88,19 +90,22 @@ class PetViewModel extends BaseViewModel {
 
   Future<void> showPetStatus() async {
     if (_pet != null) {
-      await _dialogService.showCustomDialog(
-        variant: DialogType.petStatus,
-        data: _pet,
+      await _dialogService.showDialog(
+        title: '${_pet!.name}\'s Status',
+        description: 'Health: ${_pet!.stats.health}%\n'
+            'Happiness: ${_pet!.stats.happiness}%\n'
+            'Energy: ${_pet!.stats.energy}%',
+        buttonTitle: 'Close',
       );
     }
   }
 
   Future<void> _showErrorDialog() async {
-    await _dialogService.showCustomDialog(
-      variant: DialogType.errorRetry,
+    await _dialogService.showDialog(
       title: 'Error',
       description: _errorMessage,
-      data: retryInitialization,
+      buttonTitle: 'Retry',
+      cancelTitle: 'Cancel',
     );
   }
 
