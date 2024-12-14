@@ -1,5 +1,5 @@
 enum DialogType {
+  infoAlert,
   namePet,
   petStatus,
-  errorRetry,
 }

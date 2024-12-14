@@ -1,6 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamagotchi_stev/app/app.locator.dart';
+import 'package:tamagotchi_stev/core/enums/dialog_type.dart';
 import 'package:tamagotchi_stev/core/error/game_initialization_error.dart';
 import 'package:tamagotchi_stev/models/pet_model.dart';
 import 'package:tamagotchi_stev/services/pet_service.dart';
