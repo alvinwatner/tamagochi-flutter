@@ -33,18 +33,22 @@ class PetViewModel extends BaseViewModel {
       await _petService.verifyPetState();
 
       if (_pet == null) {
-        final response = await _dialogService.showDialog(
+        final response = await _dialogService.showCustomDialog(
+          variant: DialogType.namePet,
           title: 'Name Your Pet',
           description: 'Choose a name for your new friend!',
           barrierDismissible: false,
-          buttonTitle: 'Create',
-          cancelTitle: 'Cancel',
         );
 
         if (response?.confirmed == true && response?.data != null) {
-          await _petService.createPet(response!.data as String);
+          final petName = response!.data as String;
+          if (petName.trim().isNotEmpty) {
+            await _petService.createPet(petName);
+          } else {
+            throw GameInitializationError('Pet name cannot be empty');
+          }
         } else {
-          throw GameInitializationError('Pet creation cancelled');
+          throw GameInitializationError('Pet creation cancelled by user');
         }
       }
 
@@ -67,6 +71,7 @@ class PetViewModel extends BaseViewModel {
   Future<void> feedPet() async {
     try {
       await runBusyFuture(_petService.feedPet());
+      notifyListeners();
     } catch (e) {
       await _showErrorDialog();
     }
@@ -75,6 +80,7 @@ class PetViewModel extends BaseViewModel {
   Future<void> playWithPet() async {
     try {
       await runBusyFuture(_petService.playWithPet());
+      notifyListeners();
     } catch (e) {
       await _showErrorDialog();
     }
@@ -83,6 +89,7 @@ class PetViewModel extends BaseViewModel {
   Future<void> cleanPet() async {
     try {
       await runBusyFuture(_petService.cleanPet());
+      notifyListeners();
     } catch (e) {
       await _showErrorDialog();
     }
@@ -90,22 +97,23 @@ class PetViewModel extends BaseViewModel {
 
   Future<void> showPetStatus() async {
     if (_pet != null) {
-      await _dialogService.showDialog(
+      await _dialogService.showCustomDialog(
+        variant: DialogType.petStatus,
         title: '${_pet!.name}\'s Status',
         description: 'Health: ${_pet!.stats.health}%\n'
             'Happiness: ${_pet!.stats.happiness}%\n'
             'Energy: ${_pet!.stats.energy}%',
-        buttonTitle: 'Close',
+        data: _pet,
       );
     }
   }
 
   Future<void> _showErrorDialog() async {
-    await _dialogService.showDialog(
+    await _dialogService.showCustomDialog(
+      variant: DialogType.errorRetry,
       title: 'Error',
       description: _errorMessage,
-      buttonTitle: 'Retry',
-      cancelTitle: 'Cancel',
+      data: retryInitialization,
     );
   }
 
