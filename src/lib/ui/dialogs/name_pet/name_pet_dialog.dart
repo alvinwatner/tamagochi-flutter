@@ -31,10 +31,17 @@ class NamePetDialog extends StatelessWidget {
             const SizedBox(height: 20),
             TextField(
               controller: controller,
+              autofocus: true,
               decoration: const InputDecoration(
                 hintText: 'Enter pet name',
                 border: OutlineInputBorder(),
               ),
+              onSubmitted: (value) {
+                if (value.trim().isNotEmpty) {
+                  completer(
+                      DialogResponse(confirmed: true, data: value.trim()));
+                }
+              },
             ),
             const SizedBox(height: 20),
             Row(
@@ -45,13 +52,13 @@ class NamePetDialog extends StatelessWidget {
                   child: const Text('Cancel'),
                 ),
                 ElevatedButton(
-                  onPressed: () => completer(
-                    DialogResponse(
-                      confirmed: true,
-                      data: controller.text,
-                    ),
-                  ),
-                  child: const Text('Confirm'),
+                  onPressed: () {
+                    final name = controller.text.trim();
+                    if (name.isNotEmpty) {
+                      completer(DialogResponse(confirmed: true, data: name));
+                    }
+                  },
+                  child: const Text('Create Pet'),
                 ),
               ],
             ),
