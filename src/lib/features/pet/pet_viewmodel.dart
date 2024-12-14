@@ -1,7 +1,6 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamagotchi_stev/app/app.locator.dart';
-import 'package:tamagotchi_stev/core/enums/dialog_type.dart';
 import 'package:tamagotchi_stev/core/error/game_initialization_error.dart';
 import 'package:tamagotchi_stev/models/pet_model.dart';
 import 'package:tamagotchi_stev/services/pet_service.dart';
@@ -9,6 +8,7 @@ import 'package:tamagotchi_stev/services/pet_service.dart';
 class PetViewModel extends BaseViewModel {
   final _petService = locator<PetService>();
   final _dialogService = locator<DialogService>();
+  final _navigationService = locator<NavigationService>();
 
   bool _isLoading = true;
   bool get isLoading => _isLoading;
@@ -33,11 +33,12 @@ class PetViewModel extends BaseViewModel {
       await _petService.verifyPetState();
 
       if (_pet == null) {
-        final response = await _dialogService.showDialog(
-          title: 'Name Your Pet',
-          description: 'Choose a name for your new friend!',
+        final response = await _dialogService.showCustomDialog(
+          variant: DialogType.namePet,
+          title: 'Welcome!',
+          description: 'Let\'s create your new pet friend!',
+          mainButtonTitle: 'Create',
           barrierDismissible: false,
-          dialogPlatform: DialogPlatform.Material,
         );
 
         if (response?.confirmed == true && response?.data != null) {
@@ -48,7 +49,8 @@ class PetViewModel extends BaseViewModel {
             throw GameInitializationError('Pet name cannot be empty');
           }
         } else {
-          throw GameInitializationError('Pet creation cancelled by user');
+          await _navigationService.back();
+          return;
         }
       }
 
@@ -100,17 +102,22 @@ class PetViewModel extends BaseViewModel {
         title: '${_pet!.name}\'s Status',
         description: 'Health: ${_pet!.stats.health}%\n'
             'Happiness: ${_pet!.stats.happiness}%\n'
-            'Energy: ${_pet!.stats.energy}%',
+            'Energy: ${_pet!.stats.energy}%\n\n'
+            'Birthday: ${_formatDate(_pet!.birthday)}',
         dialogPlatform: DialogPlatform.Material,
       );
     }
   }
 
+  String _formatDate(DateTime date) {
+    return '${date.day}/${date.month}/${date.year}';
+  }
+
   Future<void> _showErrorDialog() async {
     await _dialogService.showDialog(
-      title: 'Error',
+      title: 'Oops!',
       description: _errorMessage,
-      buttonTitle: 'Retry',
+      buttonTitle: 'Try Again',
       dialogPlatform: DialogPlatform.Material,
     );
   }
