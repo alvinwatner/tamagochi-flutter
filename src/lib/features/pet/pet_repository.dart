@@ -15,7 +15,7 @@ class PetRepository {
 
       final pet = Pet(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
-        name: name,
+        name: name.trim(),
         birthday: DateTime.now(),
         stats: const PetStats(
           health: 100,
@@ -49,6 +49,14 @@ class PetRepository {
       _currentPet = pet;
     } catch (e) {
       throw GameInitializationError('Failed to save pet: ${e.toString()}');
+    }
+  }
+
+  Future<void> deletePet() async {
+    try {
+      _currentPet = null;
+    } catch (e) {
+      throw GameInitializationError('Failed to delete pet: ${e.toString()}');
     }
   }
 }
