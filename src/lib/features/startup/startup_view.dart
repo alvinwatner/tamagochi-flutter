@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamagotchi_stev/core/error/error_boundary_widget.dart';
+import 'package:tamagotchi_stev/features/pet/widgets/loading_indicator_widget.dart';
 import 'startup_viewmodel.dart';
 
 class StartupView extends StackedView<StartupViewModel> {
@@ -13,25 +15,22 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'TamagotchiStev',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
-            ),
-            Gap(20),
-            SizedBox(
-              width: 32,
-              height: 32,
-              child: CircularProgressIndicator(
-                color: Colors.black,
-                strokeWidth: 3,
+    return Scaffold(
+      body: ErrorBoundaryWidget(
+        errorMessage: viewModel.errorMessage,
+        onRetry: viewModel.retryStartup,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'TamagotchiStev',
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
               ),
-            ),
-          ],
+              const Gap(20),
+              const LoadingIndicatorWidget(),
+            ],
+          ),
         ),
       ),
     );

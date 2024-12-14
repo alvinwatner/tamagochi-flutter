@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:gap/gap.dart';
+import 'package:tamagotchi_stev/core/error/error_boundary_widget.dart';
+import 'package:tamagotchi_stev/features/pet/widgets/loading_indicator_widget.dart';
 import 'package:tamagotchi_stev/features/pet/widgets/pet_action_buttons.dart';
 import 'package:tamagotchi_stev/features/pet/widgets/pet_animation_widget.dart';
 import 'package:tamagotchi_stev/features/pet/widgets/pet_status_widget.dart';
@@ -26,29 +28,35 @@ class PetView extends StackedView<PetViewModel> {
         ],
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              PetStatusWidget(
-                health: viewModel.health,
-                happiness: viewModel.happiness,
-                energy: viewModel.energy,
-              ),
-              const Gap(20),
-              Expanded(
-                child: PetAnimationWidget(
-                  petState: viewModel.petState,
+        child: ErrorBoundaryWidget(
+          errorMessage: viewModel.errorMessage,
+          onRetry: viewModel.retryInitialization,
+          child: viewModel.isLoading
+              ? const Center(child: LoadingIndicatorWidget())
+              : Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      PetStatusWidget(
+                        health: viewModel.health,
+                        happiness: viewModel.happiness,
+                        energy: viewModel.energy,
+                      ),
+                      const Gap(20),
+                      Expanded(
+                        child: PetAnimationWidget(
+                          petState: viewModel.petState,
+                        ),
+                      ),
+                      const Gap(20),
+                      PetActionButtons(
+                        onFeed: viewModel.feedPet,
+                        onPlay: viewModel.playWithPet,
+                        onClean: viewModel.cleanPet,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const Gap(20),
-              PetActionButtons(
-                onFeed: viewModel.feedPet,
-                onPlay: viewModel.playWithPet,
-                onClean: viewModel.cleanPet,
-              ),
-            ],
-          ),
         ),
       ),
     );
