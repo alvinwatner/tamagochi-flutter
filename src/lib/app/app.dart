@@ -1,30 +1,31 @@
-import 'package:tamagotchi_stev/ui/bottom_sheets/notice/notice_sheet.dart';
-import 'package:tamagotchi_stev/ui/dialogs/info_alert/info_alert_dialog.dart';
-import 'package:tamagotchi_stev/features/home/home_view.dart';
-import 'package:tamagotchi_stev/features/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
-// @stacked-import
+import 'package:tamagotchi_stev/features/home/home_view.dart';
+import 'package:tamagotchi_stev/features/pet/pet_view.dart';
+import 'package:tamagotchi_stev/features/startup/startup_view.dart';
+import 'package:tamagotchi_stev/services/pet_service.dart';
+import 'package:tamagotchi_stev/ui/bottom_sheets/pet_actions/pet_actions_sheet.dart';
+import 'package:tamagotchi_stev/ui/dialogs/name_pet/name_pet_dialog.dart';
+import 'package:tamagotchi_stev/ui/dialogs/pet_status/pet_status_dialog.dart';
 
 @StackedApp(
   routes: [
+    MaterialRoute(page: StartupView, initial: true),
     MaterialRoute(page: HomeView),
-    MaterialRoute(page: StartupView),
-// @stacked-route
+    MaterialRoute(page: PetView),
   ],
   dependencies: [
-    LazySingleton(classType: BottomSheetService),
-    LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
-    // @stacked-service
+    LazySingleton(classType: DialogService),
+    LazySingleton(classType: BottomSheetService),
+    LazySingleton(classType: PetService),
   ],
   bottomsheets: [
-    StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
+    StackedBottomsheet(classType: PetActionsSheet),
   ],
   dialogs: [
-    StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
+    StackedDialog(classType: NamePetDialog),
+    StackedDialog(classType: PetStatusDialog),
   ],
 )
 class App {}

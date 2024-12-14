@@ -1,35 +1,20 @@
-import 'package:tamagotchi_stev/app/app.bottomsheets.dart';
-import 'package:tamagotchi_stev/app/app.dialogs.dart';
-import 'package:tamagotchi_stev/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamagotchi_stev/app/app.locator.dart';
+import 'package:tamagotchi_stev/app/app.router.dart';
+import 'package:tamagotchi_stev/services/pet_service.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  final _navigationService = locator<NavigationService>();
+  final _petService = locator<PetService>();
 
-  String get counterLabel => 'Counter is: $_counter';
+  bool get hasPet => _petService.hasPet;
 
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  Future<void> navigateToPet() async {
+    await _navigationService.navigateTo(Routes.petView);
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Steve Rocks!',
-      description: 'Give steve $_counter stars on Github',
-    );
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: 'title',
-      description: 'desc',
-    );
+  Future<void> startNewGame() async {
+    await _navigationService.navigateTo(Routes.petView);
   }
 }
