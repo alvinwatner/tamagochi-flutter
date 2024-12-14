@@ -1,0 +1,1 @@
+When I want to create a pet, I got GameInitializationError: Pet Creation Canceled
